@@ -3,31 +3,56 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>48 Hour Countdown Timer</title>
+  <title>48 Hour AI Countdown</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
   <style>
-    /* Center and style the timer */
     body {
       display: flex;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
       height: 100vh;
       margin: 0;
-      background: #f0f0f0;
-      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+      color: #00e6e6;
+      font-family: 'Orbitron', sans-serif;
+      overflow: hidden;
+    }
+    .message {
+      text-align: center;
+      animation: fadeIn 2s ease-out;
+    }
+    .message h1 {
+      font-size: 2.5rem;
+      text-shadow: 0 0 10px #00e6e6, 0 0 20px #00e6e6;
+      margin: 0;
+    }
+    .message h2 {
+      font-size: 1.5rem;
+      margin: 0.5em 0 1.5em;
+      color: #fff;
+      text-shadow: 0 0 5px #fff;
     }
     #timer {
-      font-size: 5rem;
-      background: #ffffff;
-      padding: 2rem 3rem;
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      font-size: 4rem;
+      background: rgba(0, 0, 0, 0.6);
+      padding: 1em 2em;
+      border-radius: 10px;
+      box-shadow: 0 0 20px #00e6e6;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to   { opacity: 1; transform: translateY(0); }
     }
   </style>
 </head>
 <body>
+  <div class="message">
+    <h1>🤖 YOUR TIME STARTS NOW</h1>
+    <h2>ALL THE BEST TO ALL TEAMS</h2>
+  </div>
   <div id="timer">48:00:00</div>
   <script>
-    // Calculate end time 48 hours from now
     const endTime = new Date().getTime() + 48 * 60 * 60 * 1000;
     const timerEl = document.getElementById('timer');
 
@@ -39,17 +64,15 @@
         clearInterval(interval);
         return;
       }
-      const hours = Math.floor(diff / (1000 * 60 * 60));
-      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-      // Format as HH:MM:SS
+      const hrs = Math.floor(diff / (1000 * 60 * 60));
+      const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      const secs = Math.floor((diff % (1000 * 60)) / 1000);
       timerEl.textContent =
-        String(hours).padStart(2, '0') + ':' +
-        String(minutes).padStart(2, '0') + ':' +
-        String(seconds).padStart(2, '0');
+        String(hrs).padStart(2, '0') + ':' +
+        String(mins).padStart(2, '0') + ':' +
+        String(secs).padStart(2, '0');
     }
 
-    // Initial call and update every second
     updateTimer();
     const interval = setInterval(updateTimer, 1000);
   </script>

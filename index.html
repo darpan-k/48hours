@@ -33,6 +33,21 @@
       color: #fff;
       text-shadow: 0 0 5px #fff;
     }
+    #start-btn {
+      font-size: 1.2rem;
+      padding: 0.7em 1.5em;
+      margin-bottom: 1em;
+      border: none;
+      border-radius: 8px;
+      background: #00e6e6;
+      color: #1a1a1a;
+      cursor: pointer;
+      box-shadow: 0 0 10px #00e6e6;
+      transition: transform 0.2s;
+    }
+    #start-btn:hover {
+      transform: scale(1.05);
+    }
     #timer {
       font-size: 4rem;
       background: rgba(0, 0, 0, 0.6);
@@ -51,13 +66,15 @@
     <h1>🤖 YOUR TIME STARTS NOW</h1>
     <h2>ALL THE BEST TO ALL TEAMS</h2>
   </div>
+  <button id="start-btn">Start Timer</button>
   <div id="timer">48:00:00</div>
   <script>
-    const endTime = new Date().getTime() + 48 * 60 * 60 * 1000;
+    let endTime, interval;
     const timerEl = document.getElementById('timer');
+    const btn = document.getElementById('start-btn');
 
     function updateTimer() {
-      const now = new Date().getTime();
+      const now = Date.now();
       const diff = endTime - now;
       if (diff <= 0) {
         timerEl.textContent = '00:00:00';
@@ -73,8 +90,12 @@
         String(secs).padStart(2, '0');
     }
 
-    updateTimer();
-    const interval = setInterval(updateTimer, 1000);
+    btn.addEventListener('click', () => {
+      endTime = Date.now() + 48 * 60 * 60 * 1000;
+      btn.style.display = 'none';
+      updateTimer();
+      interval = setInterval(updateTimer, 1000);
+    });
   </script>
 </body>
 </html>
